@@ -8,7 +8,7 @@ import { Entypo } from '@expo/vector-icons';
 function DetailsScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>SUMMARIZE YOUR REPORTS</Text>
+      <Text style={styles.headerText}>SUMMARIZE REPORTS</Text>
       <View style={styles.row}>
         <View style={styles.card}>
           <View style={styles.header}>
@@ -25,16 +25,16 @@ function DetailsScreen({ navigation }) {
             <Text style={styles.text}>Scan Report</Text>
             <IconButton
               title={''}
-              onPress={() => console.log('IconButton pressed')} // Define onPress handler
+              onPress={() => navigation.navigate('Camera')}
               icon={<Entypo name="camera" size={24} color="black" />}
             />
           </View>
         </View>
       </View>
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, alignItems: 'center', marginTop: 20 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 20 }}>
         <Text style={styles.headerText}>LATEST REPORTS</Text>
-          <Text>View All</Text>
+        <Text style={{ paddingRight: 30, paddingTop: 100, color: 'green' }}>View all</Text>
       </View>
 
       {/* Start of scrollable cards */}
@@ -97,12 +97,14 @@ const styles = StyleSheet.create({
     justifyContent: 'left',
     alignItems: 'left',
     backgroundColor: '#f5f5f5',
+    paddingTop: 40,
   },
   headerText: {
     fontFamily: 'custom-font',
     fontSize: 30,
     fontWeight: 'bold',
     paddingTop: 100,
+    paddingLeft: 30,
     justifyContent: 'center',
     color: '#333',
   },
@@ -112,6 +114,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   row: {
+    paddingTop: 10,
     flexDirection: 'row',
   },
   card: {
