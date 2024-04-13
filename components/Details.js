@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native'; // Import TouchableOpacity
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 function DetailsScreen({ navigation }) {
   return (
@@ -10,18 +11,20 @@ function DetailsScreen({ navigation }) {
         <View style={styles.card}>
           <View style={styles.header}>
             <Text style={styles.text}>Card 1</Text>
-            <Button
-              title="Button 1"
-              onPress={() => navigation.navigate('Details')}
+            <IconButton
+              title={''}
+              onPress={() => console.log('IconButton pressed')} // Define onPress handler
+              icon={<FontAwesome5 name="plus" size={24} color="black" />}
             />
           </View>
         </View>
         <View style={styles.card}>
           <View style={styles.header}>
             <Text style={styles.text}>Card 2</Text>
-            <Button
-              title="Button 2"
-              onPress={() => navigation.navigate('Details')}
+            <IconButton
+              title={''}
+              onPress={() => console.log('IconButton pressed')} // Define onPress handler
+              icon={<FontAwesome5 name="plus" size={24} color="black" />}
             />
           </View>
         </View>
@@ -32,6 +35,13 @@ function DetailsScreen({ navigation }) {
 
 export default DetailsScreen;
 
+const IconButton = ({ title, onPress, icon }) => (
+  <TouchableOpacity style={styles.button} onPress={onPress}>
+    <Text>{title}</Text>
+    {icon}
+  </TouchableOpacity>
+);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -39,17 +49,14 @@ const styles = StyleSheet.create({
     alignItems: 'left',
     backgroundColor: '#f5f5f5',
   },
-
   text: {
     fontSize: 17,
     color: '#444444',
     textAlign: 'center',
   },
-
   row: {
     flexDirection: 'row', // Arrange children horizontally
   },
-
   card: {
     flex: 1, // Each card takes equal space
     backgroundColor: 'white',
@@ -68,9 +75,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     maxWidth: '50%', // Adjust the maximum width as per your requirement
   },
-
   header: {
     marginBottom: 16,
     alignItems: 'center',
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
