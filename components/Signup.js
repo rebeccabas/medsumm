@@ -1,41 +1,29 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import SignUpScreen from './Signup';
 
-import { FontAwesome } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
-
-const LoginScreen = ({ navigation }) => {
+const SignUpScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleLogin = () => {
-        const correctUsername = 'user';
-        const correctPassword = 'password';
-
-        if (username === correctUsername && password === correctPassword) {
-            navigation.navigate('Details');
-        } else {
-            setError('Incorrect username or password. Please try again.');
-        }
-    };
-
     const handleSignUp = () => {
-        navigation.navigate('Signup');
-        
+        if (password !== confirmPassword) {
+            setError("Passwords don't match.");
+            return;
+        }
+        navigation.navigate('Details');
     };
 
     return (
         <View style={styles.container}>
             <View style={styles.card}>
                 <View style={styles.header}>
-                    <Text style={styles.headerText}>Login</Text>
-                    <Text style={styles.footerText}>Enter your email and Password.</Text>
+                    <Text style={styles.headerText}>Sign Up</Text>
+                    <Text style={styles.footerText}>Create your account.</Text>
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <FontAwesome name="user" size={20} padding={5} color="black" />
                     <TextInput
                         value={username}
                         placeholder="Username"
@@ -45,29 +33,37 @@ const LoginScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <Entypo name="lock" size={20} padding={5} color="black" />
                     <TextInput
                         onChangeText={setPassword}
                         value={password}
                         placeholder="Password"
                         secureTextEntry
+                        style={styles.input}
                     />
                 </View>
-                
+
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        onChangeText={setConfirmPassword}
+                        value={confirmPassword}
+                        placeholder="Confirm Password"
+                        secureTextEntry
+                        style={styles.input}
+                    />
+                </View>
+
                 {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
                 <TouchableOpacity
-                    onPress={handleLogin}
-                    style={styles.loginButton}
+                    onPress={handleSignUp}
+                    style={styles.signupButton}
                 >
-                    <Text style={styles.buttonText}>LOGIN</Text>
+                    <Text style={styles.buttonText}>SIGN UP</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={handleSignUp}>
-                    <View style={styles.styleText}>
-                        <Text style={styles.baseText1}>Don't have an account? <Text style={styles.underlineText}>Sign up!</Text></Text>
-                    </View>
-                </TouchableOpacity>
+                <View style={styles.styleText}>
+                    <Text style={styles.baseText1}>Already have an account? <Text style={styles.underlineText} onPress={() => navigation.navigate('Login')}>Login</Text></Text>
+                </View>
             </View>
         </View>
     );
@@ -119,7 +115,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         fontSize: 18,
     },
-    loginButton: {
+    signupButton: {
         backgroundColor: '#339989',
         paddingVertical: 15,
         paddingHorizontal: 20,
@@ -151,4 +147,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LoginScreen;
+export default SignUpScreen;
