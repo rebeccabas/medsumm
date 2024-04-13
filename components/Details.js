@@ -2,7 +2,8 @@ import * as React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native'; // Import TouchableOpacity
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 function DetailsScreen({ navigation }) {
   return (
@@ -10,21 +11,21 @@ function DetailsScreen({ navigation }) {
       <View style={styles.row}>
         <View style={styles.card}>
           <View style={styles.header}>
-            <Text style={styles.text}>Card 1</Text>
+            <Text style={styles.text}>Upload Report</Text>
             <IconButton
               title={''}
-              onPress={() => console.log('IconButton pressed')} // Define onPress handler
-              icon={<FontAwesome5 name="plus" size={24} color="black" />}
+              onPress={() => navigation.navigate('UploadImage')} // Define onPress handler
+              icon={<FontAwesome name="photo" size={24} color="black" />}
             />
           </View>
         </View>
         <View style={styles.card}>
           <View style={styles.header}>
-            <Text style={styles.text}>Card 2</Text>
+            <Text style={styles.text}>Scan Report</Text>
             <IconButton
               title={''}
               onPress={() => console.log('IconButton pressed')} // Define onPress handler
-              icon={<FontAwesome5 name="plus" size={24} color="black" />}
+              icon={<Entypo name="camera" size={24} color="black" />}
             />
           </View>
         </View>

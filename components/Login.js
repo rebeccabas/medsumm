@@ -14,11 +14,11 @@ const LoginScreen = ({ navigation }) => {
         const correctUsername = 'user';
         const correctPassword = 'password';
 
-        if (username === correctUsername && password === correctPassword) {
+        // if (username === correctUsername && password === correctPassword) {
             navigation.navigate('Details');
-        } else {
-            setError('Incorrect username or password. Please try again.');
-        }
+        // } else {
+        //     setError('Incorrect username or password. Please try again.');
+        // }
     };
 
     const handleSignUp = () => {
