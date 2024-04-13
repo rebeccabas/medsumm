@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native'; // Import TouchableOpacity
+import { View, Text, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'; // Import ScrollView
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesome } from '@expo/vector-icons';
@@ -8,6 +8,7 @@ import { Entypo } from '@expo/vector-icons';
 function DetailsScreen({ navigation }) {
   return (
     <View style={styles.container}>
+      <Text style={styles.headerText}>SUMMARIZE YOUR REPORTS</Text>
       <View style={styles.row}>
         <View style={styles.card}>
           <View style={styles.header}>
@@ -30,6 +31,53 @@ function DetailsScreen({ navigation }) {
           </View>
         </View>
       </View>
+
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, alignItems: 'center', marginTop: 20 }}>
+        <Text style={styles.headerText}>LATEST REPORTS</Text>
+          <Text>View All</Text>
+      </View>
+
+      {/* Start of scrollable cards */}
+      <ScrollView horizontal style={styles.scrollContainer}>
+        <View style={styles.row}>
+          <View style={styles.card}>
+            <View style={styles.header}>
+              <Text style={styles.text}>Additional Card 1</Text>
+              <IconButton
+                title={''}
+                onPress={() => console.log('IconButton pressed')}
+              />
+            </View>
+          </View>
+          <View style={styles.card}>
+            <View style={styles.header}>
+              <Text style={styles.text}>Additional Card 2</Text>
+              <IconButton
+                title={''}
+                onPress={() => console.log('IconButton pressed')}
+              />
+            </View>
+          </View>
+          <View style={styles.card}>
+            <View style={styles.header}>
+              <Text style={styles.text}>Additional Card 3</Text>
+              <IconButton
+                title={''}
+                onPress={() => console.log('IconButton pressed')}
+              />
+            </View>
+          </View>
+          <View style={styles.card}>
+            <View style={styles.header}>
+              <Text style={styles.text}>Additional Card 4</Text>
+              <IconButton
+                title={''}
+                onPress={() => console.log('IconButton pressed')}
+              />
+            </View>
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -50,16 +98,24 @@ const styles = StyleSheet.create({
     alignItems: 'left',
     backgroundColor: '#f5f5f5',
   },
+  headerText: {
+    fontFamily: 'custom-font',
+    fontSize: 30,
+    fontWeight: 'bold',
+    paddingTop: 100,
+    justifyContent: 'center',
+    color: '#333',
+  },
   text: {
     fontSize: 17,
     color: '#444444',
     textAlign: 'center',
   },
   row: {
-    flexDirection: 'row', // Arrange children horizontally
+    flexDirection: 'row',
   },
   card: {
-    flex: 1, // Each card takes equal space
+    flex: 1,
     backgroundColor: 'white',
     borderRadius: 15,
     padding: 16,
@@ -74,7 +130,7 @@ const styles = StyleSheet.create({
     elevation: 14,
     justifyContent: 'center',
     alignItems: 'center',
-    maxWidth: '50%', // Adjust the maximum width as per your requirement
+    maxWidth: '50%',
   },
   header: {
     marginBottom: 16,
@@ -83,5 +139,9 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  scrollContainer: {
+    marginTop: 20, // Adjust as needed
+    marginBottom: 20, // Adjust as needed
   },
 });

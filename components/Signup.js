@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 const SignUpScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -24,6 +26,7 @@ const SignUpScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.inputContainer}>
+                <FontAwesome name="user" size={20} padding={5} color="black" />
                     <TextInput
                         value={username}
                         placeholder="Username"
@@ -33,6 +36,7 @@ const SignUpScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.inputContainer}>
+                <Entypo name="lock" size={20} padding={5} color="black" />
                     <TextInput
                         onChangeText={setPassword}
                         value={password}
@@ -43,6 +47,7 @@ const SignUpScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.inputContainer}>
+                <Entypo name="lock" size={20} padding={5} color="black" />
                     <TextInput
                         onChangeText={setConfirmPassword}
                         value={confirmPassword}
