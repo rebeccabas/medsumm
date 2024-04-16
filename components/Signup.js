@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { FontAwesome, Entypo } from '@expo/vector-icons';
 
 const SignUpScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -9,12 +8,35 @@ const SignUpScreen = ({ navigation }) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
         if (password !== confirmPassword) {
             setError("Passwords don't match.");
             return;
         }
-        navigation.navigate('Details');
+
+        try {
+            const userData = { username, password }; // Prepare data for POST request
+            const response = await fetch('http://192.168.101.10:8000/api/users/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Sign up failed');
+            }
+
+            // Clear input fields and navigate to success screen
+            setUsername('');
+            setPassword('');
+            setConfirmPassword('');
+            navigation.navigate('Details');
+        } catch (error) {
+            console.error('Error signing up:', error);
+            Alert.alert('Sign Up Failed', 'An error occurred while signing up. Please try again.');
+        }
     };
 
     return (
@@ -26,7 +48,7 @@ const SignUpScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.inputContainer}>
-                <FontAwesome name="user" size={20} padding={5} color="black" />
+                    <FontAwesome name="user" size={20} padding={5} color="black" />
                     <TextInput
                         value={username}
                         placeholder="Username"
@@ -36,7 +58,7 @@ const SignUpScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.inputContainer}>
-                <Entypo name="lock" size={20} padding={5} color="black" />
+                    <Entypo name="lock" size={20} padding={5} color="black" />
                     <TextInput
                         onChangeText={setPassword}
                         value={password}
@@ -47,7 +69,7 @@ const SignUpScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.inputContainer}>
-                <Entypo name="lock" size={20} padding={5} color="black" />
+                    <Entypo name="lock" size={20} padding={5} color="black" />
                     <TextInput
                         onChangeText={setConfirmPassword}
                         value={confirmPassword}

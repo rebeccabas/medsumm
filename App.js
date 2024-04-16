@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
 import { View, Text, Button} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,12 +15,16 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
+      
       <Stack.Navigator initialRouteName="Login"
-      screenOptions={{ headerShown: false }}>
+      screenOptions={{ title: '' }}>
+        
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignUpScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="UploadImage" component={UploadImageScreen} />
+
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
