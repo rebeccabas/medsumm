@@ -7,6 +7,7 @@ import DetailsScreen from './components/Details';
 import SignUpScreen from './components/Signup';
 import UploadImageScreen from './components/UploadImage';
 import LoginScreen from './components/Login';
+import CameraScreen from './components/camerascan';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ function App() {
         <Stack.Screen name="Signup" component={SignUpScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="UploadImage" component={UploadImageScreen} />
+        <Stack.Screen name="Camera" component={CameraScreen} />
 
         
       </Stack.Navigator>
