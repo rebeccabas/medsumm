@@ -35,7 +35,7 @@ function DetailsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>SUMMARIZE YOUR REPORTS</Text>
+      <Text style={styles.headerText}>  Summarize Your Reports</Text>
       <View style={styles.row}>
         <View style={styles.card}>
           <View style={styles.header}>
@@ -60,7 +60,7 @@ function DetailsScreen({ navigation }) {
       </View>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, alignItems: 'center', marginTop: 20 }}>
-        <Text style={styles.headerText}>LATEST REPORTS</Text>
+        <Text style={styles.headerText}>Latest Reports</Text>
         <Text>View All</Text>
       </View>
 
@@ -72,11 +72,10 @@ function DetailsScreen({ navigation }) {
               
                 <Text style={styles.text}>{item.id}</Text>
                 <Image
-                  style={{ width: 100, height: 100 }} // Adjust dimensions as needed
-                  source={{ uri: item.picture }} // Assuming 'imageUrl' is the key for image URLs in your data
+                  style={{ width: 180, height: 200 }} 
+                  source={{ uri: item.picture }} 
                 />
                 
-                {/* Render other info from item here */}
                 <IconButton
                   title={''}
                   onPress={() => console.log('IconButton pressed')}
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     borderRadius: 15,
-    padding: 16,
+    padding: 8,
     margin: 16,
     shadowColor: 'black',
     shadowOffset: {

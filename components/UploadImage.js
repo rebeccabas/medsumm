@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Image, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, Image, View, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -64,8 +64,10 @@ export default function UploadImageScreen() {
 
   return (
     <View style={styles.container}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={styles.image} />}
+      <TouchableOpacity style={styles.btn} onPress={pickImage}>
+        <Text style={styles.btnText}>Pick an image from camera roll</Text>
+      </TouchableOpacity>
+      {image && <Image source={{ uri: image }} style={styles.image} resizeMode='contain' />}
     </View>
   );
 }
@@ -77,8 +79,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: '100%',
-    height: undefined,
+    width: '50%',
+    height: 200,
     aspectRatio: 0.5,
   },
+  btn: {
+    backgroundColor: '#339989',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    marginTop: 20,
+  },
+  btnText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  }
 });
