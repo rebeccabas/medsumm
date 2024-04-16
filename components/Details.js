@@ -152,8 +152,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   modalImage: {
-    width: 300,
-    height: 300,
+    width: 380,
+    height: 500,
     resizeMode: 'contain',
   },
 });
