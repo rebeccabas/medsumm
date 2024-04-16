@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native'; // Import ScrollView
+import { View, Text, Button, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+ // Import ScrollView
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 function DetailsScreen({ navigation }) {
   const [data, setData] = useState([]);
+  
+  
 
   useEffect(() => {
     fetchData();
@@ -12,7 +16,16 @@ function DetailsScreen({ navigation }) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/images/');
+      const token = await AsyncStorage.getItem('token');
+      console.log(token)
+      const response = await fetch('http://127.0.0.1:8000/api/images/',
+    {
+      headers: {
+        'Authorization': `Token ${token}`, // Include token in headers
+        'Content-Type': 'application/json',
+      },
+
+    });
       const jsonData = await response.json();
       setData(jsonData);
     } catch (error) {

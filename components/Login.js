@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
@@ -21,6 +22,12 @@ const LoginScreen = ({ navigation }) => {
             if (!response.ok) {
                 throw new Error('Login failed');
             }
+            const { token } = await response.json();
+
+            
+            AsyncStorage.setItem('token', token);
+            console.log(token)
+
 
             // Clear input fields and navigate to success screen
             setUsername('');

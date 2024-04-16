@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Image, View, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function UploadImageScreen() {
   const [image, setImage] = useState(null);
@@ -17,29 +18,26 @@ export default function UploadImageScreen() {
     if (!result.canceled) {
       setImage(result.assets[0].uri);
 
-      // Create FormData object
+      const token = await AsyncStorage.getItem('token');
+
       const formData = new FormData();
-
-      // Convert image URI to Blob
       const file = await urlToBlob(result.assets[0].uri);
-
-      // Append Blob to FormData
       formData.append('picture', file, 'image.jpg');
-
-      console.log('Selected image URI:', result.assets[0].uri);
 
       try {
         const response = await fetch('http://127.0.0.1:8000/api/images/', {
           method: 'POST',
           body: formData,
-         
+          headers: {
+            'Authorization': `Token ${token}`,
+          },
         });
 
         const data = await response.json();
         console.log('Image upload response:', data);
 
         if (response.ok) {
-          setImage(result.assets[0].uri); // Update image state for display (optional)
+          setImage(result.assets[0].uri);
         } else {
           console.error('Error uploading image:', data);
         }
@@ -49,7 +47,6 @@ export default function UploadImageScreen() {
     }
   };
 
-  // Function to convert URL to Blob
   const urlToBlob = async (uri) => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -82,6 +79,6 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: undefined,
-    aspectRatio: 0.5, // or any other desired aspect ratio
+    aspectRatio: 0.5,
   },
 });
