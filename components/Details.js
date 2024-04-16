@@ -151,8 +151,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  scrollContainer: {
-    marginTop: 20, // Adjust as needed
-    marginBottom: 20, // Adjust as needed
+  modalImage: {
+    width: 380,
+    height: 500,
+    resizeMode: 'contain',
   },
 });
