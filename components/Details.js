@@ -16,7 +16,7 @@ function DetailsScreen({ navigation }) {
   const fetchData = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
-      const response = await fetch('http://192.168.101.10:8000/api/images/', {
+      const response = await fetch('http://192.168.1.117:8000/api/images/', {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ function DetailsScreen({ navigation }) {
           <Text style={styles.optionText}>Upload Report</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.option} onPress={() => console.log('Scan report pressed')}>
+        <TouchableOpacity style={styles.option} onPress={() =>navigation.navigate('Camera') }>
           <Entypo name="camera" size={24} color="black" />
           <Text style={styles.optionText}>Scan Report</Text>
         </TouchableOpacity>
