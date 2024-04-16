@@ -16,7 +16,7 @@ const SignUpScreen = ({ navigation }) => {
 
         try {
             const userData = { username, password }; // Prepare data for POST request
-            const response = await fetch('http://127.0.0.1:8000/api/users/', {
+            const response = await fetch('http://192.168.101.10:8000/api/users/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

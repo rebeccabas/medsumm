@@ -25,7 +25,7 @@ export default function UploadImageScreen() {
       formData.append('picture', file, 'image.jpg');
 
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/images/', {
+        const response = await fetch('http://192.168.101.8:8000/api/images/', {
           method: 'POST',
           body: formData,
           headers: {
