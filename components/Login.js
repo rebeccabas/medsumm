@@ -8,32 +8,41 @@ const LoginScreen = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleLogin = () => {
-        const correctUsername = 'user';
-        const correctPassword = 'password';
+    const handleLogin = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
 
-        // if (username === correctUsername && password === correctPassword) {
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+
+            // Clear input fields and navigate to success screen
+            setUsername('');
+            setPassword('');
             navigation.navigate('Details');
-        // } else {
-        //     setError('Incorrect username or password. Please try again.');
-        // }
+        } catch (error) {
+            console.error('Error logging in:', error);
+            setError('Incorrect username or password. Please try again.');
+        }
     };
 
     const handleSignUp = () => {
         navigation.navigate('Signup');
-        
     };
 
     return (
         <View style={styles.container}>
             <View style={styles.card}>
-                <View style={styles.header}>
-                    <Text style={styles.headerText}>Login</Text>
-                    <Text style={styles.footerText}>Enter your email and Password.</Text>
-                </View>
-
+                <Text style={styles.headerText}>Login</Text>
+                <Text style={styles.footerText}>Enter your email and password</Text>
                 <View style={styles.inputContainer}>
-                    <FontAwesome name="user" size={20} padding={5} color="black" />
+                    <FontAwesome name="user" size={20} color="black" />
                     <TextInput
                         value={username}
                         placeholder="Username"
@@ -41,26 +50,23 @@ const LoginScreen = ({ navigation }) => {
                         onChangeText={setUsername}
                     />
                 </View>
-
                 <View style={styles.inputContainer}>
-                    <Entypo name="lock" size={20} padding={5} color="black" />
+                    <Entypo name="lock" size={20} color="black" />
                     <TextInput
                         onChangeText={setPassword}
                         value={password}
                         placeholder="Password"
                         secureTextEntry
+                        style={styles.input}
                     />
                 </View>
-                
                 {error ? <Text style={styles.errorText}>{error}</Text> : null}
-
                 <TouchableOpacity
                     onPress={handleLogin}
                     style={styles.loginButton}
                 >
                     <Text style={styles.buttonText}>LOGIN</Text>
                 </TouchableOpacity>
-
                 <TouchableOpacity onPress={handleSignUp}>
                     <View style={styles.styleText}>
                         <Text style={styles.baseText1}>Don't have an account? <Text style={styles.underlineText}>Sign up!</Text></Text>
@@ -81,8 +87,7 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: 'rgba(255, 255, 255, 0.6)',
         borderRadius: 20,
-        padding: 50,
-        marginBottom: 20,
+        padding: 30,
         width: 320,
         shadowColor: "#000",
         shadowOffset: {
@@ -91,21 +96,19 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-    },
-    header: {
         alignItems: 'center',
     },
     headerText: {
         fontFamily: 'custom-font',
-        fontSize: 40,
+        fontSize: 30,
         fontWeight: 'bold',
         color: '#333',
+        marginBottom: 10,
     },
     footerText: {
-        marginTop: 40,
-        marginBottom: 40,
         fontSize: 12,
         color: '#888',
+        marginBottom: 20,
     },
     inputContainer: {
         flexDirection: 'row',
@@ -136,7 +139,6 @@ const styles = StyleSheet.create({
     },
     baseText1: {
         fontSize: 12,
-        margin: 10,
         alignItems: 'center',
     },
     underlineText: {
