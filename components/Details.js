@@ -1,11 +1,38 @@
-import * as React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'; // Import ScrollView
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+ // Import ScrollView
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 function DetailsScreen({ navigation }) {
+  const [data, setData] = useState([]);
+  
+  
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      console.log(token)
+      const response = await fetch('http://127.0.0.1:8000/api/images/',
+    {
+      headers: {
+        'Authorization': `Token ${token}`, // Include token in headers
+        'Content-Type': 'application/json',
+      },
+
+    });
+      const jsonData = await response.json();
+      setData(jsonData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>SUMMARIZE REPORTS</Text>
@@ -15,7 +42,7 @@ function DetailsScreen({ navigation }) {
             <Text style={styles.text}>Upload Report</Text>
             <IconButton
               title={''}
-              onPress={() => navigation.navigate('UploadImage')} // Define onPress handler
+              onPress={() => navigation.navigate('UploadImage')}
               icon={<FontAwesome name="photo" size={24} color="black" />}
             />
           </View>
@@ -25,7 +52,7 @@ function DetailsScreen({ navigation }) {
             <Text style={styles.text}>Scan Report</Text>
             <IconButton
               title={''}
-              onPress={() => navigation.navigate('Camera')}
+              onPress={() => console.log('IconButton pressed')}
               icon={<Entypo name="camera" size={24} color="black" />}
             />
           </View>
@@ -37,45 +64,26 @@ function DetailsScreen({ navigation }) {
         <Text style={{ paddingRight: 30, paddingTop: 100, color: 'green' }}>View all</Text>
       </View>
 
-      {/* Start of scrollable cards */}
       <ScrollView horizontal style={styles.scrollContainer}>
         <View style={styles.row}>
-          <View style={styles.card}>
-            <View style={styles.header}>
-              <Text style={styles.text}>Additional Card 1</Text>
-              <IconButton
-                title={''}
-                onPress={() => console.log('IconButton pressed')}
-              />
+          {data.map((item, index) => (
+            <View style={styles.card} key={index}>
+              <View style={styles.header}>
+              
+                <Text style={styles.text}>{item.id}</Text>
+                <Image
+                  style={{ width: 100, height: 100 }} // Adjust dimensions as needed
+                  source={{ uri: item.picture }} // Assuming 'imageUrl' is the key for image URLs in your data
+                />
+                
+                {/* Render other info from item here */}
+                <IconButton
+                  title={''}
+                  onPress={() => console.log('IconButton pressed')}
+                />
+              </View>
             </View>
-          </View>
-          <View style={styles.card}>
-            <View style={styles.header}>
-              <Text style={styles.text}>Additional Card 2</Text>
-              <IconButton
-                title={''}
-                onPress={() => console.log('IconButton pressed')}
-              />
-            </View>
-          </View>
-          <View style={styles.card}>
-            <View style={styles.header}>
-              <Text style={styles.text}>Additional Card 3</Text>
-              <IconButton
-                title={''}
-                onPress={() => console.log('IconButton pressed')}
-              />
-            </View>
-          </View>
-          <View style={styles.card}>
-            <View style={styles.header}>
-              <Text style={styles.text}>Additional Card 4</Text>
-              <IconButton
-                title={''}
-                onPress={() => console.log('IconButton pressed')}
-              />
-            </View>
-          </View>
+          ))}
         </View>
       </ScrollView>
     </View>
