@@ -8,7 +8,7 @@ import { Entypo } from '@expo/vector-icons';
 function DetailsScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>SUMMARIZE YOUR REPORTS</Text>
+      <Text style={styles.headerText}>   SUMMARIZE YOUR REPORTS</Text>
       <View style={styles.row}>
         <View style={styles.card}>
           <View style={styles.header}>
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     maxWidth: '50%',
+    
   },
   header: {
     marginBottom: 16,
