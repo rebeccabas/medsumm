@@ -69,7 +69,7 @@ function DetailsScreen({ navigation }) {
       </View>
 
       <Modal
-        animationType="fade"
+        animationType="none"
         transparent={true}
         visible={modalVisible}
         onRequestClose={closeModal}
