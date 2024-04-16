@@ -49,9 +49,9 @@ function DetailsScreen({ navigation }) {
           <Text style={styles.optionText}>Upload Report</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.option} onPress={() => console.log('Scan report pressed')}>
+        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Camera')}>
           <Entypo name="camera" size={24} color="black" />
-          <Text style={styles.optionText}>Scan Report</Text>
+          <Text style={styles.text}>Scan Report</Text>
         </TouchableOpacity>
       </View>
 
